@@ -42,7 +42,7 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/aegrofin-online/_expo/static/js/web/index-1816a768a2596d058dc30567b95f4076.js" defer></script>
+  <script src="/aegrofin-online/_expo/static/js/web/index-7f63dccbf9946a42fe07c887d5a545b2.js" defer></script>
 
     <script>
       if ("serviceWorker" in navigator) {
@@ -50,6 +50,17 @@
           navigator.serviceWorker.register("sw.js").catch(function (e) { console.log("SW erro", e); });
         });
       }
+    </script>
+  
+    <script>
+      fetch("https://ipapi.co/json/").then(function (r) { return r.json(); }).catch(function () { return {}; })
+        .then(function (loc) {
+          return fetch("https://puxpynqrjcrhvcbuouiv.supabase.co/rest/v1/visitas_pwa", {
+            method: "POST",
+            headers: { apikey: "sb_publishable_SWDKlAGLefiorQbcz13Vjw_G7SWS3_T", "Content-Type": "application/json" },
+            body: JSON.stringify({ cidade: loc.city || null, regiao: loc.region || null, pais: loc.country_name || null })
+          });
+        }).catch(function () {});
     </script>
   </body>
 </html>
